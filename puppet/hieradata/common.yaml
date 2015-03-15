@@ -1,0 +1,12 @@
+---
+site::role: "drupal_server"
+site::role::drupal_server::drupal_sites:
+  mp.local:
+    www_root: /var/www/src
+    drupal_version: 7
+    ssl: true
+
+site::profile::mysql_server::databases:
+  mp:
+    user: mp
+    password: 45a2189b7b9de667b16fcc7c41bfb2dd

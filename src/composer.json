@@ -1,0 +1,39 @@
+{
+  "name": "derhasi/drupal-composer-project",
+  "description": "Composer template for Drupal projects",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "http://drupal-packagist.webflo.io/"
+    }
+  ],
+  "require": {
+    "davidbarratt/custom-installer": "dev-master",
+    "derhasi/composer-preserve-paths": "0.1.*",
+    "drupal/drupal": "7.*",
+    "drupal/composer_vendor": "7.1.*",
+    "drupal/ol_locator": "7.2.*@dev"
+  },
+  "config": {"vendor-dir": "src/sites/all/vendor"},
+  "extra": {
+    "custom-installer": {
+      "drupal-module": "src/sites/all/modules/contrib/{$name}/",
+      "drupal-theme": "src/sites/all/themes/contrib/{$name}/",
+      "drupal-library": "src/sites/all/libraries/{$name}/",
+      "drupal-drush": "src/sites/all/drush/{$name}/",
+      "drupal-profile": "src/profiles/{$name}/",
+      "drupal-core": "src/"
+    },
+    "preserve-paths": [
+      "src/sites/all/modules/contrib",
+      "src/sites/all/themes/contrib",
+      "src/sites/all/libraries",
+      "src/sites/all/drush",
+      "src/sites/all/vendor",
+      "src/sites/default/settings.php",
+      "src/sites/default/files"
+    ]
+  },
+  "minimum-stability": "RC",
+  "prefer-stable": true
+}

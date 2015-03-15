@@ -1,0 +1,7 @@
+---
+# site::profile::dev_tools::git_config:
+#   user.name:
+#     value: '[Vorname] [Nachname]'
+#   user.email:
+#     value: '[user.name]@pixelpark.com'
+# site::profile::dev_tools::configured: false

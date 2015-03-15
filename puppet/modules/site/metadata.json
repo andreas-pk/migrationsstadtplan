@@ -1,0 +1,17 @@
+{
+    "author": "pixelpark",
+    "dependencies": [{
+            "name": "nodes/php",
+            "version_requirement": ">=0.9.0"
+        },{
+            "name": "puppetlabs/apache",
+            "version_requirement": ">=1.1.1"
+        }
+    ],
+    "license": "Pixelpark Eigentum",
+    "name": "pixelpark-site",
+    "project_page": "",
+    "source": "https://git.pixelpark.com/puppet/puppet-site",
+    "summary": "Pixelpark Site Module",
+    "version": "0.1.0"
+}

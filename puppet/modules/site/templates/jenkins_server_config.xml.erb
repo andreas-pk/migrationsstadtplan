@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson>
+  <disabledAdministrativeMonitors/>
+  <version>1.0</version>
+  <numExecutors>2</numExecutors>
+  <mode>NORMAL</mode>
+  <useSecurity>true</useSecurity>
+  <authorizationStrategy class="hudson.security.ProjectMatrixAuthorizationStrategy">
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:florian.schade</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:philip.hornig</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:thomas.bussmeyer</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:florian.schade</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:philip.hornig</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:thomas.bussmeyer</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:florian.schade</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:philip.hornig</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:thomas.bussmeyer</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:florian.schade</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:philip.hornig</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:thomas.bussmeyer</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:florian.schade</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:philip.hornig</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:thomas.bussmeyer</permission>
+    <permission>hudson.model.Computer.Build:florian.schade</permission>
+    <permission>hudson.model.Computer.Build:philip.hornig</permission>
+    <permission>hudson.model.Computer.Build:thomas.bussmeyer</permission>
+    <permission>hudson.model.Computer.Configure:florian.schade</permission>
+    <permission>hudson.model.Computer.Configure:philip.hornig</permission>
+    <permission>hudson.model.Computer.Configure:thomas.bussmeyer</permission>
+    <permission>hudson.model.Computer.Connect:florian.schade</permission>
+    <permission>hudson.model.Computer.Connect:philip.hornig</permission>
+    <permission>hudson.model.Computer.Connect:thomas.bussmeyer</permission>
+    <permission>hudson.model.Computer.Create:florian.schade</permission>
+    <permission>hudson.model.Computer.Create:philip.hornig</permission>
+    <permission>hudson.model.Computer.Create:thomas.bussmeyer</permission>
+    <permission>hudson.model.Computer.Delete:florian.schade</permission>
+    <permission>hudson.model.Computer.Delete:philip.hornig</permission>
+    <permission>hudson.model.Computer.Delete:thomas.bussmeyer</permission>
+    <permission>hudson.model.Computer.Disconnect:florian.schade</permission>
+    <permission>hudson.model.Computer.Disconnect:philip.hornig</permission>
+    <permission>hudson.model.Computer.Disconnect:thomas.bussmeyer</permission>
+    <permission>hudson.model.Hudson.Administer:florian.schade</permission>
+    <permission>hudson.model.Hudson.Administer:philip.hornig</permission>
+    <permission>hudson.model.Hudson.Administer:thomas.bussmeyer</permission>
+    <permission>hudson.model.Hudson.ConfigureUpdateCenter:florian.schade</permission>
+    <permission>hudson.model.Hudson.ConfigureUpdateCenter:philip.hornig</permission>
+    <permission>hudson.model.Hudson.ConfigureUpdateCenter:thomas.bussmeyer</permission>
+    <permission>hudson.model.Hudson.Read:anonymous</permission>
+    <permission>hudson.model.Hudson.Read:florian.schade</permission>
+    <permission>hudson.model.Hudson.Read:philip.hornig</permission>
+    <permission>hudson.model.Hudson.Read:thomas.bussmeyer</permission>
+    <permission>hudson.model.Hudson.RunScripts:florian.schade</permission>
+    <permission>hudson.model.Hudson.RunScripts:philip.hornig</permission>
+    <permission>hudson.model.Hudson.RunScripts:thomas.bussmeyer</permission>
+    <permission>hudson.model.Hudson.UploadPlugins:florian.schade</permission>
+    <permission>hudson.model.Hudson.UploadPlugins:philip.hornig</permission>
+    <permission>hudson.model.Hudson.UploadPlugins:thomas.bussmeyer</permission>
+    <permission>hudson.model.Item.Build:florian.schade</permission>
+    <permission>hudson.model.Item.Build:philip.hornig</permission>
+    <permission>hudson.model.Item.Build:thomas.bussmeyer</permission>
+    <permission>hudson.model.Item.Cancel:florian.schade</permission>
+    <permission>hudson.model.Item.Cancel:philip.hornig</permission>
+    <permission>hudson.model.Item.Cancel:thomas.bussmeyer</permission>
+    <permission>hudson.model.Item.Configure:florian.schade</permission>
+    <permission>hudson.model.Item.Configure:philip.hornig</permission>
+    <permission>hudson.model.Item.Configure:thomas.bussmeyer</permission>
+    <permission>hudson.model.Item.Create:florian.schade</permission>
+    <permission>hudson.model.Item.Create:philip.hornig</permission>
+    <permission>hudson.model.Item.Create:thomas.bussmeyer</permission>
+    <permission>hudson.model.Item.Delete:florian.schade</permission>
+    <permission>hudson.model.Item.Delete:philip.hornig</permission>
+    <permission>hudson.model.Item.Delete:thomas.bussmeyer</permission>
+    <permission>hudson.model.Item.Discover:florian.schade</permission>
+    <permission>hudson.model.Item.Discover:philip.hornig</permission>
+    <permission>hudson.model.Item.Discover:thomas.bussmeyer</permission>
+    <permission>hudson.model.Item.Read:anonymous</permission>
+    <permission>hudson.model.Item.Read:florian.schade</permission>
+    <permission>hudson.model.Item.Read:philip.hornig</permission>
+    <permission>hudson.model.Item.Read:thomas.bussmeyer</permission>
+    <permission>hudson.model.Item.Workspace:florian.schade</permission>
+    <permission>hudson.model.Item.Workspace:philip.hornig</permission>
+    <permission>hudson.model.Item.Workspace:thomas.bussmeyer</permission>
+    <permission>hudson.model.Run.Delete:florian.schade</permission>
+    <permission>hudson.model.Run.Delete:philip.hornig</permission>
+    <permission>hudson.model.Run.Delete:thomas.bussmeyer</permission>
+    <permission>hudson.model.Run.Update:florian.schade</permission>
+    <permission>hudson.model.Run.Update:philip.hornig</permission>
+    <permission>hudson.model.Run.Update:thomas.bussmeyer</permission>
+    <permission>hudson.model.View.Configure:florian.schade</permission>
+    <permission>hudson.model.View.Configure:philip.hornig</permission>
+    <permission>hudson.model.View.Configure:thomas.bussmeyer</permission>
+    <permission>hudson.model.View.Create:florian.schade</permission>
+    <permission>hudson.model.View.Create:philip.hornig</permission>
+    <permission>hudson.model.View.Create:thomas.bussmeyer</permission>
+    <permission>hudson.model.View.Delete:florian.schade</permission>
+    <permission>hudson.model.View.Delete:philip.hornig</permission>
+    <permission>hudson.model.View.Delete:thomas.bussmeyer</permission>
+    <permission>hudson.model.View.Read:anonymous</permission>
+    <permission>hudson.model.View.Read:florian.schade</permission>
+    <permission>hudson.model.View.Read:philip.hornig</permission>
+    <permission>hudson.model.View.Read:thomas.bussmeyer</permission>
+    <permission>hudson.scm.SCM.Tag:florian.schade</permission>
+    <permission>hudson.scm.SCM.Tag:philip.hornig</permission>
+    <permission>hudson.scm.SCM.Tag:thomas.bussmeyer</permission>
+  </authorizationStrategy>
+  <securityRealm class="hudson.security.LDAPSecurityRealm" plugin="ldap@1.11">
+    <server>ldap.pixelpark.com</server>
+    <rootDN>o=isp</rootDN>
+    <inhibitInferRootDN>false</inhibitInferRootDN>
+    <userSearchBase>ou=People,o=Pixelpark</userSearchBase>
+    <userSearch>uid={0}</userSearch>
+    <groupSearchBase>ou=Groups,o=Pixelpark</groupSearchBase>
+    <groupMembershipStrategy class="jenkins.security.plugins.ldap.FromGroupSearchLDAPGroupMembershipStrategy">
+      <filter></filter>
+    </groupMembershipStrategy>
+    <managerDN>uid=wwwadm,ou=wwwserver,ou=applications,o=pixelpark,o=isp</managerDN>
+    <managerPasswordSecret>ioXfTJasarjQtC2a9jRxiIg7zhwcisify+BVJVFZGUE=</managerPasswordSecret>
+    <disableMailAddressResolver>false</disableMailAddressResolver>
+    <cache>
+      <size>20</size>
+      <ttl>300</ttl>
+    </cache>
+    <displayNameAttributeName>displayname</displayNameAttributeName>
+    <mailAddressAttributeName>mail</mailAddressAttributeName>
+    <userIdStrategy class="jenkins.model.IdStrategy$CaseInsensitive"/>
+    <groupIdStrategy class="jenkins.model.IdStrategy$CaseInsensitive"/>
+  </securityRealm>
+  <disableRememberMe>false</disableRememberMe>
+  <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
+  <workspaceDir>${ITEM_ROOTDIR}/workspace</workspaceDir>
+  <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
+  <markupFormatter class="hudson.markup.EscapedMarkupFormatter"/>
+  <jdks/>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+  <clouds/>
+  <slaves/>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>All</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+    </hudson.model.AllView>
+  </views>
+  <primaryView>All</primaryView>
+  <slaveAgentPort>0</slaveAgentPort>
+  <label></label>
+  <nodeProperties/>
+  <globalNodeProperties/>
+</hudson>
