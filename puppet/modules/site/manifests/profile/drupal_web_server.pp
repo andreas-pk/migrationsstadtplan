@@ -3,5 +3,5 @@ class site::profile::drupal_web_server {
     ensure => latest,
   }
 
-  include ::site::profile::php_server
+  include ::site::profile::php
 }

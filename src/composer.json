@@ -12,7 +12,9 @@
     "derhasi/composer-preserve-paths": "0.1.*",
     "drupal/drupal": "7.*",
     "drupal/composer_vendor": "7.1.*",
-    "drupal/ol_locator": "7.2.*@dev"
+    "drupal/openlayers": "7.3.0-beta1",
+    "drupal/service_container": "7.1.*@dev",
+    "drupal/ol_locator": "7.2.x-dev"
   },
   "config": {"vendor-dir": "src/sites/all/vendor"},
   "extra": {

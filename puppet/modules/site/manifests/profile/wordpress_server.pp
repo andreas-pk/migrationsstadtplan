@@ -25,23 +25,10 @@ class site::profile::wordpress_server (
     create_db_user  => false,
   }
 
-  class { 'php::extension::mysql':
-    package => 'php-mysql',
-  }
-
-  class { 'php::extension::gd':
-    package => 'php-gd',
-  }
-
-  php::extension { 'xml':
-    ensure  => "latest",
-    package => "php-xml",
-  }
-
-  php::extension { 'xdebug':
-    ensure  => "latest",
-    package => "php-pecl-xdebug",
-  }
+  php::module{ 'mysql':}
+  php::module{ 'gd':}
+  php::module{ 'xml':}
+  php::module{ 'pecl-xdebug':}
 
   #  if $vhost != undef {
   #    create_resources('apache::vhost',$vhost)

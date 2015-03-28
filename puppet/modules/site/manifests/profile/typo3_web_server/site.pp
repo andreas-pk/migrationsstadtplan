@@ -6,7 +6,7 @@ define site::profile::typo3_web_server::site (
   $ssl = false,
 ) {
 
-  site::profile::php_server::site {$name:
+  ::site::profile::php::site {$name:
     www_root => $www_root,
     web_name => $web_name,
     aliases => $aliases,

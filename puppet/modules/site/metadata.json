@@ -1,8 +1,8 @@
 {
     "author": "pixelpark",
     "dependencies": [{
-            "name": "nodes/php",
-            "version_requirement": ">=0.9.0"
+            "name": "thias/php",
+            "version_requirement": ">=1.1.0"
         },{
             "name": "puppetlabs/apache",
             "version_requirement": ">=1.1.1"

@@ -8,5 +8,5 @@ class site::role::typo3_server (
   include ::site::profile::typo3_web_server
   include ::site::profile::mysql_server
 
-  create_resources("site::profile::typo3_web_server::site", $typo3_sites)
+  create_resources("::site::profile::typo3_web_server::site", $typo3_sites)
 }

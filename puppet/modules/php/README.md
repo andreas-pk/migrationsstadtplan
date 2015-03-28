@@ -1,56 +1,113 @@
-Introduction
-============
+# puppet-php
 
-``puppet-php`` is a module for managing PHP using puppet.
+## Overview
 
-Why Use puppet-php
-------------------
+Install PHP packages and configure PHP INI files, for using PHP from the CLI,
+the Apache httpd module or FastCGI.
 
-* it's [very fast to install](http://puppet-php.readthedocs.org/en/latest/installation.html), a few minutes tops.
+The module is very Red Hat Enterprise Linux focused, as the defaults try to
+change everything in ways which are typical for RHEL, but it also works on
+Debian based distributions (such as Ubuntu), and support for others should
+be easy to add.
 
-* it supports [all PHP SAPIs](http://puppet-php.readthedocs.org/en/latest/sapi.html) out of the box.
+* `php::cli` : Simple class to install PHP's Command Line Interface
+* `php::fpm::daemon` : Simple class to install PHP's FastCGI Process Manager
+* `php::fpm::conf` : PHP FPM pool configuration definition
+* `php::ini` : Definition to create php.ini files
+* `php::mod_php5` : Simple class to install PHP's Apache httpd module
+* `php::module` : Definition to manage separately packaged PHP modules
+* `php::module::ini` : Definition to manage the ini files of separate modules
 
-* it supports [a lot of PHP extensions](http://puppet-php.readthedocs.org/en/latest/extensions.html) out of the box.
+## Examples
 
-* it's is very flexible and has tons of configuration options, and sane defaults.
+Create `php.ini` files for different uses, but based on the same template :
 
-* it aims to stay out of your way, and if it happens to get in your way, you can change the undesired behavior very easily.
+```puppet
+php::ini { '/etc/php.ini':
+  display_errors => 'On',
+  memory_limit   => '256M',
+}
+php::ini { '/etc/httpd/conf/php.ini':
+  mail_add_x_header => 'Off',
+  # For the parent directory
+  require           => Package['httpd'],
+}
+```
 
-* it removes the boilerplate code from your manifests, which mean less code to maintain, and less code to spend time unit testing.
+Install the latest version of the PHP command line interface in your OS's
+package manager (e.g. Yum for RHEL):
 
-* it uses the MIT license.
+```puppet
+include '::php::cli'
+```
 
-Documentation
--------------
+Install version 5.3.3 of the PHP command line interface :
 
-The documentation can be found at [puppet-php.readthedocs.org/en/](http://puppet-php.readthedocs.org/en/latest)
+```puppet
+class { 'php::cli': ensure => '5.3.3' }
+```
 
-Source code
------------
+Install the PHP Apache httpd module, using its own php configuration file
+(you will need mod_env in apache for this to work) :
 
-The source can be found at [github.com/jippi/puppet-php](https://github.com/jippi/puppet-php/)
+```puppet
+class { 'php::mod_php5': inifile => '/etc/httpd/conf/php.ini' }
+```
 
-License
--------
+Install PHP modules which don't have any configuration :
 
-The project is released under the permissive MIT license.
+```puppet
+php::module { [ 'ldap', 'mcrypt' ]: }
+```
 
-Bugs
-----
+Configure PHP modules, which must be installed with php::module first :
 
-If you happen to stumble upon a bug, please feel free to create a pull request with a fix
-(optionally with a test), and a description of the bug and how it was resolved.
+```puppet
+php::module { [ 'pecl-apc', 'xml' ]: }
+php::module::ini { 'pecl-apc':
+  settings => {
+    'apc.enabled'      => '1',
+    'apc.shm_segments' => '1',
+    'apc.shm_size'     => '64',
+  }
+}
+php::module::ini { 'xmlreader': pkgname => 'xml' }
+php::module::ini { 'xmlwriter': ensure => 'absent' }
+```
 
-You can also create an issue with a description to raise awareness of the bug.
+Install PHP FastCGI Process Manager with a single pool to be used with nginx.
+Note that we reuse the 'www' name to overwrite the example configuration :
 
-Features
---------
+```puppet
+include '::php::fpm::daemon'
+php::fpm::conf { 'www':
+  listen  => '127.0.0.1:9001',
+  user    => 'nginx',
+  # For the user to exist
+  require => Package['nginx'],
+}
+```
 
-If you have a good idea for a feature, please join us on IRC and let's discuss it.
-Pull requests are always more than welcome.
+Then from the nginx configuration :
 
-Support / Questions
--------------------
+```
+# PHP FastCGI backend
+upstream wwwbackend {
+  server 127.0.0.1:9001;
+}
+# Proxy PHP requests to the FastCGI backend
+location ~ \.php$ {
+  # Don't bother PHP if the file doesn't exist, return the built in
+  # 404 page (this also avoids "No input file specified" error pages)
+  if (!-f $request_filename) { return 404; }
+  include /etc/nginx/fastcgi.conf;
+  fastcgi_pass wwwbackend;
+}
+# Try to send all non-existing files to the main /index.php
+# (typically if you have a PHP framework requiring this)
+location @indexphp {
+  if (-f $document_root/index.php) { rewrite .* /index.php last; }
+}
+try_files $uri @indexphp;
+```
 
-You can find me on IRC in the #puppet channel on irc.freenode.net for any support or questions.
-My alias is ``Jippi``
