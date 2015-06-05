@@ -1,19 +1,8 @@
 name = Map
 core = 7.x
 package = Features
-features[ctools][] = openlayers:default_openlayers_layers:1
-features[ctools][] = openlayers:default_openlayers_maps:1
-features[ctools][] = openlayers:default_openlayers_sources:1
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
-features[openlayers_layers][] = layer_map_views_map_page_1
-features[openlayers_maps][] = locations_map
-features[openlayers_maps][] = map_views_map_page_1
-features[openlayers_sources][] = source_map_views_map_page_1
-features[openlayers_sources][] = source_views_map_openlayers_1
-features[views_view][] = map
-features_exclude[dependencies][openlayers] = openlayers
-features_exclude[dependencies][openlayers_views] = openlayers_views
-features_exclude[dependencies][views] = views
+
 no autodetect = 1
 project path = sites/all/modules/features

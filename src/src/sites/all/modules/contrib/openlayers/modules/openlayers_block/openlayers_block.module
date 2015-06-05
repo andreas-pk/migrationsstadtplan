@@ -60,6 +60,7 @@ function _openlayers_block_get_block_id($map_machine_name) {
  *   The name of the map.
  */
 function _openlayers_block_get_map_name($delta) {
+  require_once "sites/all/modules/contrib/ctools/includes/export.inc";
   $all_maps = ctools_export_crud_load_all('openlayers_maps');
 
   foreach ($all_maps as $map) {
