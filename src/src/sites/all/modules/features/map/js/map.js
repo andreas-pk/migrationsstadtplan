@@ -27,16 +27,30 @@ fetchData(); //must actually call the function!
 
 jQuery(function () {
   console.log('create tree');
-  jQuery('div#chosentree').chosentree({
-    width: 500,
-    deepLoad: true,
-    load: function (node, callback) {
-        return dummyData();
-     }
-  });
+  jQuery('div#chosentree');
 });
 
-var dummyData = function() {
-  var data = '"employees":[{"firstName":"John", "lastName":"Doe"},{"firstName":"Anna", "lastName":"Smith"},{"firstName":"Peter","lastName":"Jones"}]';
-  return data;
+
+var getFilters = function() {
+  //var data_org = jQuery.extend(true, {}, node);
+  //loadChildren(data_org, 0);
+  //console.log(data_org.children, 'org data');
+
+
+  jQuery.ajax('map/map-filter', {
+    dataType: 'json',
+    success: function (data, textStatus, jqXHR) {
+
+     jQuery.each(data, function(index){
+       this.level = 1;
+       this.has_children = 0;
+       this.children = [];
+      });
+      console.log(data, 'requested data');
+      return data;
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log(errorThrown);
+    }
+  });
 };

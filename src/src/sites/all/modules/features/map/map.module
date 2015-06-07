@@ -64,6 +64,7 @@ function map_block_view($delta = '') {
       $block['content'] = map_block_contents($delta);
       drupal_add_js(drupal_get_path('module', 'map') . '/js/jquery.treeselect.min.js', 'file');
       drupal_add_js(drupal_get_path('module', 'map') . '/js/map.js', array('type' => 'file', 'scope' => 'footer', 'weight' => 99));
+      drupal_add_css(drupal_get_path('module', 'map') . '/js/jquery.treeselect.css', array('type' => 'file', 'scope' => 'header', 'weight' => 99));
       break;
   }
   return $block;
