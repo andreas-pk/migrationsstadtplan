@@ -3,31 +3,47 @@
  */
 
 //now fetch the data
-var fetchData = function () {
-  var locations_feed = new ol.source.GeoJSON();
-
-  jQuery.ajax('/locations-feed',
+var fetchData = function (category) {
+  var mapId = jQuery('.openlayers-map').attr('id');
+  var map = Drupal.openlayers.instances[mapId];
+  var locationsFeedName = findGeoJSONFeedInSources(map.sources);
+  var locationsFeed = map.sources[locationsFeedName];
+  var locationsFeedUrl = '/locations-feed';
+  if (category != undefined) {
+    locationsFeedUrl += '/' + category;
+  }
+  jQuery.ajax(locationsFeedUrl,
     {
       dataType: 'json',
       success: function (data, textStatus, jqXHR) {
-        locations_feed.clear(); //remove existing features
-        locations_feed.addFeatures(locations_feed.readFeatures(data));
+        locationsFeed.clear(); //remove existing features
+        locationsFeed.addFeatures(locationsFeed.readFeatures(data));
+
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        console.log(errorThrown);
       }
     });
-
-  //call this again in 5 seconds time
-  //updateTimer = setTimeout(function () {
-  //    fetchData();
-  //}, 5000);
 };
-fetchData(); //must actually call the function!
+
 
 jQuery(function () {
   console.log('create tree');
-  jQuery('div#chosentree');
+  jQuery("#filter").fancytree({
+    source: {
+      url: "map/map-filter",
+      cache: false
+    },
+    checkbox: true,
+    selectMode: 3,
+    generateIds: true,
+    activate: function(event, data) {
+      // A node was activated: display its title:
+      var node = data.node;
+      console.log(node, 'n');
+      fetchData(node.key);
+    }
+
+  });
 });
 
 
@@ -54,3 +70,11 @@ var getFilters = function() {
     }
   });
 };
+
+var findGeoJSONFeedInSources = function(sources) {
+  for(var element in sources) {
+    if(sources[element] instanceof ol.source.GeoJSON) {
+      return element;
+    }
+  }
+}
