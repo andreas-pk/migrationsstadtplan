@@ -104,14 +104,19 @@ ul
 
 
 span 
-  &.fancytree-checkbox 
-    @extend %extend_1
+  &.fancytree-checkbox
+    display: inline-block
+    cursor: pointer
+    vertical-align: top
+    @include background-image(url("../images/source/checkbox.png"))
+    background-repeat: no-repeat
+    background-position: left
+    background-position: 0 0
+    background-size: 100%
+    width: 20px
+    height: 20px
     margin-top: 0
     margin-left: .5em
-    @include background-image(url("../images/source/plus.png"))
-    background-size: 100%
-    background-position: 0 0
-    background-repeat: no-repeat
 
   &.fancytree-drag-helper-img 
     @extend %extend_1
@@ -145,6 +150,13 @@ span
     width: 100%
     margin-top: 1px
     min-height: 1em
+    &.fancytree-selected
+      .fancytree-checkbox
+        @include background-image(url("../images/source/check.png"))
+        background-size: 100%
+        background-position: 0 0
+        background-repeat: no-repeat
+
     &.fancytree-error span.fancytree-title 
       color: $red
   

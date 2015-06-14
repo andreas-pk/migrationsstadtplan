@@ -192,7 +192,7 @@ body:before {
       background-image: -o-linear-gradient(left, transparent 0, #EEEEEE 0, #EEEEEE 20%, transparent 20%, transparent 26.66667%, #EEEEEE 26.66667%, #EEEEEE 46.66667%, transparent 46.66667%, transparent 53.33333%, #EEEEEE 53.33333%, #EEEEEE 73.33333%, transparent 73.33333%, transparent 80.0%, #EEEEEE 80.0%, #EEEEEE 100.0%, transparent 100.0%);
       background-image: linear-gradient(left, transparent 0, #EEEEEE 0, #EEEEEE 20%, transparent 20%, transparent 26.66667%, #EEEEEE 26.66667%, #EEEEEE 46.66667%, transparent 46.66667%, transparent 53.33333%, #EEEEEE 53.33333%, #EEEEEE 73.33333%, transparent 73.33333%, transparent 80.0%, #EEEEEE 80.0%, #EEEEEE 100.0%, transparent 100.0%); } }
 
-#fancytree-drop-marker, span.fancytree-checkbox, span.fancytree-drag-helper-img, span.fancytree-empty, span.fancytree-expander, span.fancytree-icon, span.fancytree-radio, span.fancytree-vline {
+#fancytree-drop-marker, span.fancytree-drag-helper-img, span.fancytree-empty, span.fancytree-expander, span.fancytree-icon, span.fancytree-radio, span.fancytree-vline {
   width: 1em;
   height: 1em;
   display: inline-block;
@@ -259,13 +259,19 @@ ul.fancytree-no-connector > li {
     width: 4em; }
 
 span.fancytree-checkbox {
-  margin-top: 0;
-  margin-left: 0.5em;
-  background-image: url("../images/source/plus.png");
-  background-image: url("../images/source/plus.png");
-  background-size: 100%;
+  display: inline-block;
+  cursor: pointer;
+  vertical-align: top;
+  background-image: url("../images/source/checkbox.png");
+  background-image: url("../images/source/checkbox.png");
+  background-repeat: no-repeat;
+  background-position: left;
   background-position: 0 0;
-  background-repeat: no-repeat; }
+  background-size: 100%;
+  width: 20px;
+  height: 20px;
+  margin-top: 0;
+  margin-left: 0.5em; }
 span.fancytree-expander {
   margin-top: 0;
   cursor: pointer; }
@@ -282,6 +288,12 @@ span.fancytree-node {
   width: 100%;
   margin-top: 1px;
   min-height: 1em; }
+  span.fancytree-node.fancytree-selected .fancytree-checkbox {
+    background-image: url("../images/source/check.png");
+    background-image: url("../images/source/check.png");
+    background-size: 100%;
+    background-position: 0 0;
+    background-repeat: no-repeat; }
   span.fancytree-node.fancytree-error span.fancytree-title {
     color: red; }
 span.fancytree-title {
