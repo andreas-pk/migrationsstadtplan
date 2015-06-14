@@ -406,14 +406,14 @@ img.fancytree-icon {
     filter: alpha(opacity=40); }
 
 .fancytree-loading span.fancytree-expander {
-  background-image: url(loading.gif); }
+  background-image: url(../images/source/loading.gif); }
   .fancytree-loading span.fancytree-expander:hover {
-    background-image: url(loading.gif); }
+    background-image: url(../images/source/loading.gif); }
 
 .fancytree-statusnode-wait span.fancytree-icon {
-  background-image: url(loading.gif); }
+  background-image: url(../images/source/loading.gif); }
   .fancytree-statusnode-wait span.fancytree-icon:hover {
-    background-image: url(loading.gif); }
+    background-image: url(../images/source/loading.gif); }
 
 div.fancytree-drag-helper a {
   border: 1px solid gray;
