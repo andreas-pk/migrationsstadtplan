@@ -67,7 +67,7 @@ jQuery(function () {
     }
 
   });
-});
+    });
 
 var findGeoJSONFeedInSources = function(sources) {
   for(var element in sources) {
