@@ -187,24 +187,24 @@ function map_views_default_views() {
   $handler->display->display_options['fields']['tid_1']['label'] = 'parent_id';
   $handler->display->display_options['fields']['tid_1']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['tid_1']['separator'] = '';
-  /* Field: Taxonomy term: Weight */
-  $handler->display->display_options['fields']['weight']['id'] = 'weight';
-  $handler->display->display_options['fields']['weight']['table'] = 'taxonomy_term_data';
-  $handler->display->display_options['fields']['weight']['field'] = 'weight';
-  $handler->display->display_options['fields']['weight']['label'] = '';
-  $handler->display->display_options['fields']['weight']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['weight']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['weight']['separator'] = '';
   /* Field: Taxonomy term: Machine name */
   $handler->display->display_options['fields']['machine_name']['id'] = 'machine_name';
   $handler->display->display_options['fields']['machine_name']['table'] = 'taxonomy_term_data';
   $handler->display->display_options['fields']['machine_name']['field'] = 'machine_name';
   $handler->display->display_options['fields']['machine_name']['label'] = 'icon_class';
   $handler->display->display_options['fields']['machine_name']['element_label_colon'] = FALSE;
-  /* Sort criterion: Taxonomy term: Weight */
-  $handler->display->display_options['sorts']['weight']['id'] = 'weight';
-  $handler->display->display_options['sorts']['weight']['table'] = 'taxonomy_term_data';
-  $handler->display->display_options['sorts']['weight']['field'] = 'weight';
+  /* Field: Taxonomy term: Weight */
+  $handler->display->display_options['fields']['weight']['id'] = 'weight';
+  $handler->display->display_options['fields']['weight']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['weight']['field'] = 'weight';
+  $handler->display->display_options['fields']['weight']['label'] = 'weight';
+  $handler->display->display_options['fields']['weight']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['weight']['separator'] = '';
+  /* Sort criterion: Taxonomy term: Term ID */
+  $handler->display->display_options['sorts']['tid']['id'] = 'tid';
+  $handler->display->display_options['sorts']['tid']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['sorts']['tid']['field'] = 'tid';
+  $handler->display->display_options['sorts']['tid']['order'] = 'DESC';
   /* Filter criterion: Taxonomy vocabulary: Machine name */
   $handler->display->display_options['filters']['machine_name']['id'] = 'machine_name';
   $handler->display->display_options['filters']['machine_name']['table'] = 'taxonomy_vocabulary';
