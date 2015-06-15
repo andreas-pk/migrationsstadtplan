@@ -1,4 +1,5 @@
 <?php
+include_once 'map.features.inc';
 /**
  * @file
  * Code for the Map feature.
@@ -62,9 +63,9 @@ function map_block_view($delta = '') {
     case 'map_filter_block':
       $block['subject'] = t('Map filter block');
       $block['content'] = map_block_contents($delta);
-      drupal_add_js(drupal_get_path('module', 'map') . '/js/jquery.treeselect.min.js', 'file');
+      drupal_add_js(drupal_get_path('module', 'map') . '/js/jquery.fancytree.min.js', 'file');
+      drupal_add_js(drupal_get_path('module', 'map') . '/js/jquery-ui.min.js', 'file');
       drupal_add_js(drupal_get_path('module', 'map') . '/js/map.js', array('type' => 'file', 'scope' => 'footer', 'weight' => 99));
-      drupal_add_css(drupal_get_path('module', 'map') . '/js/jquery.treeselect.css', array('type' => 'file', 'scope' => 'header', 'weight' => 99));
       break;
   }
   return $block;
@@ -73,30 +74,8 @@ function map_block_view($delta = '') {
 function map_block_contents($which_block) {
   switch ($which_block) {
     case 'map_filter_block':
-      // Modules would typically perform some database queries to fetch the
-      // content for their blocks. Here, we'll just use the variable set in the
-      // block configuration or, if none has set, a default value.
-      // Block content can be returned in two formats: renderable arrays
-      // (as here) are preferred though a simple string will work as well.
-      // Block content created through the UI defaults to a string.
 
-      // drupal_add_library is invoked automatically when a form element has the
-      // '#ajax' property, but since we are not rendering a form here, we have to
-      // do it ourselves.
-      drupal_add_library('system', 'drupal.ajax');
-      // The use-ajax class is special, so that the link will call without causing
-      // a page reload. Note the /nojs portion of the path - if javascript is
-      // enabled, this part will be stripped from the path before it is called.
-      $link = l(t('Ajax'), 'map_filter_block_ajax_callback/nojs/', array('attributes' => array('class' => array('use-ajax'))));
-      $filters = taxonomy_get_tree('2', 0, 3);
-      $link2 = l(t('JS'), '#', array('attributes' => array('class' => array('refresh-map'))));
-
-      $output = "<div id='test-div'><ul><li>$link</li><li>$link2</li></ul></div>";
-      $output .= "<div id='chosentree'></div>";
-      //$output .= '<ul id="filters">';
-      $tree = _map_taxonomy_build_tree($filters);
-      $rendered_tree = _map_taxonomy_tree_render($tree);
-      $output .= drupal_render($rendered_tree);
+      $output = "<div id='filter'></div>";
       $result = array(
         '#markup' => $output,
       );
@@ -104,56 +83,43 @@ function map_block_contents($which_block) {
   }
 }
 
-/*
- * Helper function to render nested tree to ul with wrapping div
- * from https://api.drupal.org/comment/52303#comment-52303
+/**
+ * Implements hook_views_pre_render().
  */
-function _map_taxonomy_tree_render($tree, $recurring = FALSE) {
-  $items = array();
-  if (count($tree)) {
-    foreach ($tree as $term) {
-      //$path = taxonomy_term_uri($term);
-      $attributes = array('class' => array('filter-item ' . $term->name), 'id' => array('tid-'. $term->tid) );
-      $item = array('data' => l($term->name, '', array('attributes' => $attributes)));
+function map_views_post_render(&$view) {
+  if($view->name === 'map_filter') {
 
-      if (isset($term->children)) {
-        $item["children"] = _map_taxonomy_tree_render($term->children, TRUE);
+    $terms = _map_array_key_to_tid($view->display_handler->output);
+    $result = array();
+    $last_term_stack = array();
+    foreach ($terms as $key => $term) {
+      $term->iconClass = str_replace('_', '-', $term->icon_class);
+      if (!isset($term->parent_id)) {
+        $result[$key] = $term;
       }
-      $items[] = $item;
+      else {
+        $parent_key = $term->parent_id;
+        // prepare parent term structure
+        if (!isset($result[$parent_key])) {
+          $result[$parent_key] = $terms[$parent_key];
+          $result[$parent_key]->folder = TRUE;
+          $result[$parent_key]->expanded = TRUE;
+        }
+        if (isset($result[$term->key])) {
+          $term = $result[$term->key];
+          unset($result[$term->key]);
+        }
+        $result[$parent_key]->children[] = $term;
+      }
     }
+    $view->display_handler->output = array_values($result);
   }
-  if ($recurring) {
-    return $items;
-  }
-  return array(
-    '#theme' => 'item_list',
-    '#items' => $items,
-    '#attributes' => array('class' => 'filter-tree' , 'id' => 'filters'),
-  );
 }
 
-/*
- * Helper function to build nested tree
- * from https://api.drupal.org/comment/52303#comment-52303
- */
-function _map_taxonomy_build_tree($flatTree){
-  $tree = array();
-  $last_term_stack = array();
-  foreach ($flatTree as &$term) {
-    while(count($last_term_stack) > 0){
-      if(in_array(end($last_term_stack)->tid, $term->parents)) {
-        $lastTerm = end($last_term_stack);
-        $lastTerm->children[]=$term;
-        array_push($last_term_stack,$term);
-        break;
-      } else {
-        array_pop($last_term_stack);
-      }
-    }
-    if(empty($last_term_stack)){
-      $tree[] =$term;
-      array_push($last_term_stack, $term);
-    }
+function _map_array_key_to_tid($terms) {
+  $result = array();
+  foreach ($terms as $term) {
+      $result[$term->key] = $term;
   }
-  return $tree;
+  return $result;
 }
