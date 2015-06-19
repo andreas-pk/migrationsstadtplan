@@ -20,7 +20,10 @@ var fetchData = function (categories) {
       dataType: 'json',
       success: function (data, textStatus, jqXHR) {
         locationsFeed.clear(); //remove existing features
-        locationsFeed.addFeatures(locationsFeed.readFeatures(data));
+        var features = locationsFeed.readFeatures(data);
+        console.log(features, 'f');
+        addIconStyle(features);
+        locationsFeed.addFeatures(addIconStyle(features));
       },
       error: function (jqXHR, textStatus, errorThrown) {
       }
@@ -75,4 +78,22 @@ var findGeoJSONFeedInSources = function(sources) {
       return element;
     }
   }
+}
+
+var addIconStyle = function(features) {
+
+  var iconStyle = new ol.style.Style({
+    image: new ol.style.Icon( ({
+      anchor: [0.5, 46],
+      anchorXUnits: 'fraction',
+      anchorYUnits: 'pixels',
+      opacity: 0.75,
+      src: 'data/icon.png'
+    }))
+  });
+
+  features.forEach( function(feature, index, array) {
+    features[index].setStyle(iconStyle);
+  });
+  return features;
 }

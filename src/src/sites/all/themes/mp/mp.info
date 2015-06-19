@@ -38,8 +38,8 @@ scripts[] = js/build/modernizr.js
 ;scripts[] = js/source/map.js
 
 settings[mp_tabs] = 1
-settings[mp_breadcrumb] = 1
-settings[mp_breadcrumb_home] = 1
+settings[mp_breadcrumb] = 0
+settings[mp_breadcrumb_home] = 0
 settings[mp_breadcrumb_separator] = »
 settings[clear_registry] = 0
 settings[mp_ie_enabled] = 0
