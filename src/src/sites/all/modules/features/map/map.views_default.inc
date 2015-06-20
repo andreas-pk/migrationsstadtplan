@@ -128,6 +128,19 @@ function map_views_default_views() {
   $handler->display->display_options['style_options']['data_source']['description_field'] = 'body';
   $handler->display->display_options['style_options']['jsonp_prefix'] = '';
   $handler->display->display_options['path'] = 'locations-feed';
+  $translatables['locations'] = array(
+    t('Master'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Taxonomy term entity referenced from field_location_category'),
+    t('.'),
+    t('All'),
+    t('Location GeoJSON Feed'),
+  );
   $export['locations'] = $view;
 
   $view = new view();
@@ -216,6 +229,24 @@ function map_views_default_views() {
   /* Display: Services */
   $handler = $view->new_display('services', 'Services', 'services_map_filter');
   $handler->display->display_options['path'] = 'map-filter';
+  $translatables['map_filter'] = array(
+    t('Master'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Parent'),
+    t('title'),
+    t('tooltip'),
+    t('key'),
+    t('.'),
+    t('parent_id'),
+    t('icon_class'),
+    t('weight'),
+    t('Services'),
+  );
   $export['map_filter'] = $view;
 
   return $export;
