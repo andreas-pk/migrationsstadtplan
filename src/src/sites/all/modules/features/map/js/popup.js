@@ -1,6 +1,6 @@
 Drupal.openlayers.pluginManager.register({
   fs: 'openlayers.component.internal.popup',
-  init: function(data) {
+  init: function (data) {
     var map = data.map;
 
     var container = jQuery('<div/>', {
@@ -24,7 +24,7 @@ Drupal.openlayers.pluginManager.register({
      * Add a click handler to hide the popup.
      * @return {boolean} Don't follow the href.
      */
-    closer.onclick = function() {
+    closer.onclick = function () {
       container.style.display = 'none';
       closer.blur();
       return false;
@@ -41,24 +41,24 @@ Drupal.openlayers.pluginManager.register({
 
     map.addOverlay(overlay);
 
-    map.on('click', function(evt) {
-      var feature = map.forEachFeatureAtPixel(evt.pixel, function(feature, layer) {
+    map.on('click', function (evt) {
+      var feature = map.forEachFeatureAtPixel(evt.pixel, function (feature, layer) {
         if (goog.isDef(data.opt.layers[layer.mn])) {
           return feature;
         }
       });
-      if(feature === undefined) return;
+      if (feature === undefined) return;
       // set position at marker (feature) point
       overlay.setPosition(feature.getGeometry().getCoordinates());
       // get features from structure
       feature = feature.get('features');
       // put different html for single and clustered features
-      if(feature.length == 1) {
+      if (feature.length == 1) {
         feature = feature[0];
         content.innerHTML = getInnerHtml(feature);
       } else {
         content.innerHTML = '';
-        feature.forEach( function(element, index, array) {
+        feature.forEach(function (element, index, array) {
           content.innerHTML += getInnerHtml(element);
         });
       }
