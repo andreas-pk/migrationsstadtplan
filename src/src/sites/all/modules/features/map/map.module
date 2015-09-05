@@ -63,7 +63,9 @@ function map_block_view($delta = '') {
     case 'map_filter_block':
       $block['subject'] = t('Map filter block');
       $block['content'] = map_block_contents($delta);
+      // add via js-library https://www.drupal.org/node/756722
       drupal_add_js(drupal_get_path('module', 'map') . '/js/jquery-ui.min.js', 'file');
+      // add via js-library https://www.drupal.org/node/756722
       drupal_add_js(drupal_get_path('module', 'map') . '/js/jquery.fancytree.min.js', 'file');
       drupal_add_js(drupal_get_path('module', 'map') . '/js/map.js', array('type' => 'file', 'scope' => 'footer', 'weight' => 99));
       drupal_add_js(drupal_get_path('module', 'map') . '/js/popup.js', array('type' => 'file', 'scope' => 'footer', 'weight' => 99));

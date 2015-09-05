@@ -48,6 +48,7 @@ Drupal.openlayers.pluginManager.register({
         }
       });
       if (feature === undefined) return;
+      content.innerHTML = '';
       // set position at marker (feature) point
       overlay.setPosition(feature.getGeometry().getCoordinates());
       // get features from structure
@@ -55,20 +56,70 @@ Drupal.openlayers.pluginManager.register({
       // put different html for single and clustered features
       if (feature.length == 1) {
         feature = feature[0];
-        content.innerHTML = getInnerHtml(feature);
+        content.innerHTML = getInnerHtml(feature, true);
       } else {
-        content.innerHTML = '';
+        // handle cluster popup
         feature.forEach(function (element, index, array) {
-          content.innerHTML += getInnerHtml(element);
+          var first = (index == 0) || false;
+          content.innerHTML += getInnerHtml(element, first);
         });
+        content.innerHTML = '<div class="cluster-popup-wrapper"><a class="sliderNav prev"></a>' + content.innerHTML + '<a class="sliderNav next"></av></div>';
       }
       container.style.display = 'block';
+      initializePopupSlider();
     });
 
-    function getInnerHtml(feature) {
+    function getInnerHtml(feature, first) {
       var name = feature.get('name') || '';
       var description = feature.get('description') || '';
-      return '<div class="ol-popup-name">' + name + '</div><div class="ol-popup-description">' + description + '</div>';
+      var is_visible = 'hidden';
+      if (first) {
+        is_visible = 'visible';
+      }
+      return '<div class="cluster-slide-wrapper ' + is_visible +'"><div class="ol-popup-name">' + name + '</div><div class="ol-popup-description">' + description + '</div></div>';
     }
   }
 });
+
+var initializePopupSlider = function() {
+  jQuery('.cluster-popup-wrapper .sliderNav').on('click', function (event) {
+    event.preventDefault();
+    direction = (jQuery(this).hasClass('next')) ? 'next' : 'prev';
+    console.log(jQuery(this).hasClass('next'), 't');
+    var slides = jQuery(this).parent().children('.cluster-slide-wrapper');
+    console.log(slides, 'slides');
+    cycle(slides, 'div.cluster-slide-wrapper', 'visible', direction);
+  });
+};
+
+/**
+ * Helper function to slide depending on the direction
+ * @param slides Array
+ * @param sliderSelector selector to find slides in dom
+ * @param visibilitySelector String the class name which visible elements have
+ * @param direction String 'prev' or 'next'
+ */
+var cycle = function (slides, sliderSelector, visibilitySelector, direction) {
+  currentSlide = slides.filter('.' + visibilitySelector).first().removeClass(visibilitySelector).hide();
+
+  switch (direction) {
+    case 'next':
+      if (currentSlide.next(sliderSelector).length == 1) {
+        nextSlide = currentSlide.next(sliderSelector);
+      } else {
+        nextSlide = slides.first();
+      }
+      break;
+
+    case 'prev':
+      if (currentSlide.prev(sliderSelector).length == 1) {
+        nextSlide = currentSlide.prev(sliderSelector);
+      } else {
+        nextSlide = slides.last();
+      }
+      break;
+    default :
+  }
+  
+  nextSlide.addClass(visibilitySelector).show();
+};

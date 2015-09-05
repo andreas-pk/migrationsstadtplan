@@ -1,4 +1,6 @@
-#map_canvas 
+$popup-slider-nav-dim: 25px
+
+#map_canvas
   width: 100%
 
 #map_canvas img 
@@ -6,10 +8,37 @@
 // to prevent UI control bug
 
 
-.popup
-  .content
-    padding: 0 0.5em 1em 0.5em
+.ol-popup
+  padding: 5px
+  @include border-radius(0px)
 
+  .cluster-popup-wrapper
+    position: relative
+    padding: 0 $popup-slider-nav-dim
+
+    .prev, .next
+      @include background-image(url("../images/source/right.png"))
+      background-size: 100%
+      position: absolute
+      top: 50%
+      width: $popup-slider-nav-dim
+      height: $popup-slider-nav-dim
+      display: inline-block
+      cursor: pointer
+
+    .prev
+      @include background-image(url("../images/source/left.png"))
+      margin: 0 5px 0 0
+      left: 0
+
+    .next
+      right: 0
+      margin: 0 0 0 5px
+
+    .cluster-slide-wrapper
+      display: none
+      &.visible
+        display: inline-block
 
 #map_canvas .firstHeading 
   font-size: 1em

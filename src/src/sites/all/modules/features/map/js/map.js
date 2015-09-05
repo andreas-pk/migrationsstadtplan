@@ -5,6 +5,7 @@
 Drupal.behaviors.map = {
   attach: function (context, settings) {
     var map = getMap();
+    // @todo fetch cluster layer dynamically
     map.layers['openlayers_examples_layer_cluster_cities_pdm'].setStyle(addIconStyle);
   }
 };
@@ -28,8 +29,6 @@ var fetchData = function (categories) {
       success: function (data, textStatus, jqXHR) {
         locationsFeed.clear(); //remove existing features
         var features = locationsFeed.readFeatures(data);
-        //features = addIconStyle(features);
-        //console.log(features, 'addStyle');
         locationsFeed.addFeatures(features);
       },
       error: function (jqXHR, textStatus, errorThrown) {
@@ -69,7 +68,7 @@ jQuery(function () {
       //
       if(node.selected === false && node.isActive() === true) {
         node.setActive(false);
-        console.log(node, 'de-select node');
+        // console.log(node, 'de-select node');
       }
       if(node.selected === true) {
         console.log(node, 'select node');
@@ -78,7 +77,7 @@ jQuery(function () {
 
   });
 });
-
+// helper function to fetch the map from dom tree via its id
 var getMap = function() {
   var mapId = jQuery('.openlayers-map').attr('id');
   var map = Drupal.openlayers.instances[mapId];
