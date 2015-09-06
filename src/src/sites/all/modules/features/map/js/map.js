@@ -18,7 +18,7 @@ var fetchData = function (categories) {
   var map = getMap();
   var locationsFeedName = findGeoJSONFeedInSources(map.sources);
   var locationsFeed = map.sources[locationsFeedName];
-  var locationsFeedUrl = '/locations-feed';
+  var locationsFeedUrl = Drupal.settings.pathPrefix + 'locations-feed';
 
   if (categories != undefined) {
     locationsFeedUrl += '/' + categories;
@@ -40,9 +40,9 @@ jQuery(function () {
   /**
    * create filter tree with data from ajax call
    */
-  jQuery("#filter").fancytree({
+  jQuery('#filter').fancytree({
     source: {
-      url: "map/map-filter",
+      url: Drupal.settings.pathPrefix + 'map/map-filter',
       cache: false
     },
     activeVisible: true,

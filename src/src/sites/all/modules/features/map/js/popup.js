@@ -81,13 +81,15 @@ Drupal.openlayers.pluginManager.register({
   }
 });
 
+/**
+ * Adds slider functionality to cluster popups via event listener
+ */
 var initializePopupSlider = function() {
   jQuery('.cluster-popup-wrapper .sliderNav').on('click', function (event) {
     event.preventDefault();
     direction = (jQuery(this).hasClass('next')) ? 'next' : 'prev';
-    console.log(jQuery(this).hasClass('next'), 't');
     var slides = jQuery(this).parent().children('.cluster-slide-wrapper');
-    console.log(slides, 'slides');
+
     cycle(slides, 'div.cluster-slide-wrapper', 'visible', direction);
   });
 };
@@ -120,6 +122,6 @@ var cycle = function (slides, sliderSelector, visibilitySelector, direction) {
       break;
     default :
   }
-  
+
   nextSlide.addClass(visibilitySelector).show();
 };

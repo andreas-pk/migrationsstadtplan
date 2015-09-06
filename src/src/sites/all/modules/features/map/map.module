@@ -94,7 +94,6 @@ function map_views_post_render(&$view) {
 
     $terms = _map_array_key_to_tid($view->display_handler->output);
     $result = array();
-    $last_term_stack = array();
     foreach ($terms as $key => $term) {
       $term->iconClass = str_replace('_', '-', $term->icon_class);
       if (!isset($term->parent_id)) {
