@@ -6,7 +6,13 @@ Drupal.behaviors.map = {
   attach: function (context, settings) {
     var map = getMap();
     // @todo fetch cluster layer dynamically
-    map.layers['openlayers_examples_layer_cluster_cities_pdm'].setStyle(addIconStyle);
+    console.log(map, 'm');
+    if(map.layers['openlayers_examples_layer_cluster_cities_pdm'] != undefined) {
+      map.layers['openlayers_examples_layer_cluster_cities_pdm'].setStyle(addIconStyle);
+    }
+    if(map.layers['geofield_field_formatter_layer'] != undefined) {
+      //map.layers['geofield_field_formatter_layer'].setStyle(addIconStyle);
+    }
   }
 };
 
@@ -40,43 +46,46 @@ jQuery(function () {
   /**
    * create filter tree with data from ajax call
    */
-  jQuery('#filter').fancytree({
-    source: {
-      url: Drupal.settings.pathPrefix + 'map/map-filter',
-      cache: false
-    },
-    activeVisible: true,
-    checkbox: true,
-    selectMode: 3,
-    generateIds: true,
-    idPrefix: 'filter-',
-    icons: true,
-    activate: function(event, data) {
-    },
-    deactivate: function(event, data) {
-    },
-    select: function(event, data) {
-      // A node was selected: fetchData (and redraw map)
-      var node = data.node;
-      // select node on activation
-      var selectedNodes = data.tree.getSelectedNodes();
-      var selectedKeys = [];
-      selectedNodes.forEach( function(element1, element2, set) {
-        selectedKeys.push(element1.key)
-      });
-      fetchData(selectedKeys.join('+'));
-      //
-      if(node.selected === false && node.isActive() === true) {
-        node.setActive(false);
-        // console.log(node, 'de-select node');
+  if (jQuery('#filter').length) {
+    jQuery('#filter').fancytree({
+      source: {
+        url: Drupal.settings.pathPrefix + 'map/map-filter',
+        cache: false
+      },
+      activeVisible: true,
+      checkbox: true,
+      selectMode: 3,
+      generateIds: true,
+      idPrefix: 'filter-',
+      icons: true,
+      activate: function (event, data) {
+      },
+      deactivate: function (event, data) {
+      },
+      select: function (event, data) {
+        // A node was selected: fetchData (and redraw map)
+        var node = data.node;
+        // select node on activation
+        var selectedNodes = data.tree.getSelectedNodes();
+        var selectedKeys = [];
+        selectedNodes.forEach(function (element1, element2, set) {
+          selectedKeys.push(element1.key)
+        });
+        fetchData(selectedKeys.join('+'));
+        //
+        if (node.selected === false && node.isActive() === true) {
+          node.setActive(false);
+          // console.log(node, 'de-select node');
+        }
+        if (node.selected === true) {
+          console.log(node, 'select node');
+        }
       }
-      if(node.selected === true) {
-        console.log(node, 'select node');
-      }
-    }
 
-  });
+    });
+  }
 });
+
 // helper function to fetch the map from dom tree via its id
 var getMap = function() {
   var mapId = jQuery('.openlayers-map').attr('id');
@@ -132,15 +141,16 @@ var clusterStyle = function (feature) {
 // small help function which returns icon style for a single feature
 // depending on its category
 var singleFeatureStyle = function (feature) {
-  // get cate
+  // get category
   var icon_image_name = feature.get('parent_machine_name') || feature.get('machine_name') || 'default-marker';
   // default iconStyle
   return new ol.style.Style({
     image: new ol.style.Icon( ({
-      anchor: [0.5, 46],
+      anchor: [0.5, 0.5],
       anchorXUnits: 'fraction',
       anchorYUnits: 'pixels',
       opacity: 1,
+      scale: 0.14,
       src: Drupal.settings.themePath + '/images/source/' + icon_image_name +'-icon.png'
     }))
   });

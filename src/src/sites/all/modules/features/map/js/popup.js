@@ -63,7 +63,7 @@ Drupal.openlayers.pluginManager.register({
           var first = (index == 0) || false;
           content.innerHTML += getInnerHtml(element, first);
         });
-        content.innerHTML = '<div class="cluster-popup-wrapper"><a class="sliderNav prev"></a>' + content.innerHTML + '<a class="sliderNav next"></av></div>';
+        content.innerHTML = '<div class="cluster-popup-wrapper multiple"><a class="sliderNav prev"></a>' + content.innerHTML + '<a class="sliderNav next"></av></div>';
       }
       container.style.display = 'block';
       initializePopupSlider();
@@ -72,11 +72,21 @@ Drupal.openlayers.pluginManager.register({
     function getInnerHtml(feature, first) {
       var name = feature.get('name') || '';
       var description = feature.get('description') || '';
+      var category = feature.get('field_location_category') || '';
+      var logo = feature.get('field_location_logo') || '';
+      var link = feature.get('view_node') || '';
       var is_visible = 'hidden';
       if (first) {
         is_visible = 'visible';
       }
-      return '<div class="cluster-slide-wrapper ' + is_visible +'"><div class="ol-popup-name">' + name + '</div><div class="ol-popup-description">' + description + '</div></div>';
+      var innerHtml = '<div class="cluster-slide-wrapper ' + is_visible +'">';
+      innerHtml +=  '<div class="ol-popup-logo">' + logo + '</div>';
+      innerHtml +=  '<div class="ol-popup-category">' + category + '</div>';
+      innerHtml +=  '<div class="ol-popup-name">' + name + '</div>';
+      innerHtml +=  '<div class="ol-popup-description">' + description + '</div>';
+      innerHtml +=  '<div class="ol-popup-link">' + link + '</div>';
+      innerHtml +=  '</div>';
+      return innerHtml;
     }
   }
 });
