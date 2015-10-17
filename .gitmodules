@@ -1,0 +1,3 @@
+[submodule "src/src"]
+	path = src/src
+	url = git@github.com:andreas-pk/migrationmap-src.git
